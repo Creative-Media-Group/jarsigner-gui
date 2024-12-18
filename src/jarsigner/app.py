@@ -17,7 +17,7 @@ class JarSigner(toga.App):
         show the main window.
         """
         # jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
-        self.keystore_label = toga.Label()
+        self.keystore_label = toga.Label("No files selected...")
         self.alias_name = toga.TextInput(placeholder="Alias")
         self.password = toga.PasswordInput(placeholder="Password")
         main_box = toga.Box(children=[self.alias_name, self.password])
@@ -32,11 +32,11 @@ class JarSigner(toga.App):
                 toga.OpenFileDialog("Open file with Toga")
             )
             if fname is not None:
-                self.label.text = f"File to open: {fname}"
+                self.keystore_label = f"File to open: {fname}"
             else:
-                self.label.text = "No file selected!"
+                self.keystore_label = "No file selected!"
         except ValueError:
-            self.label.text = "Open file dialog was canceled"
+            self.keystore_label = "Open file dialog was canceled"
 
 
 def main():
