@@ -13,29 +13,18 @@ formal_name = "Jar Signer GUI"
 description = "My first application"
 long_description = """More details about the app should go here.
 """
-sources = [
-    "src/jarsigner_gui",
-]
-test_sources = [
-    "tests",
-]
+sources = ["src/jarsigner_gui"]
+test_sources = ["tests"]
 
 requires = []
-test_requires = [
-    "pytest",
-]
+test_requires = ["pytest"]
 
 [tool.briefcase.app.jarsigner_gui.macOS]
 universal_build = true
-requires = [
-    "toga-cocoa~=0.4.8",
-    "std-nslog~=1.0.3",
-]
+requires = ["toga-cocoa~=0.4.8", "std-nslog~=1.0.3"]
 
 [tool.briefcase.app.jarsigner_gui.linux]
-requires = [
-    "toga-gtk~=0.4.8",
-]
+requires = ["toga-gtk~=0.4.8"]
 
 [tool.briefcase.app.jarsigner_gui.linux.system.debian]
 system_requires = [
@@ -43,6 +32,7 @@ system_requires = [
     "libcairo2-dev",
     # Needed to compile PyGObject wheel
     "libgirepository1.0-dev",
+    "openjdk-21-jdk-headless",
 ]
 
 system_runtime_requires = [
@@ -62,7 +52,7 @@ system_requires = [
     "cairo-gobject-devel",
     # Needed to compile PyGObject wheel
     "gobject-introspection-devel",
-    "java-21-openjdk-devel", # Removing if needed
+    "java-21-openjdk-devel",  # Removing if needed
 ]
 
 system_runtime_requires = [
@@ -140,9 +130,7 @@ system_requires = [
     "gvfs-client",
 ]
 
-linuxdeploy_plugins = [
-    "DEPLOY_GTK_VERSION=3 gtk",
-]
+linuxdeploy_plugins = ["DEPLOY_GTK_VERSION=3 gtk"]
 
 [tool.briefcase.app.jarsigner_gui.linux.flatpak]
 flatpak_runtime = "org.gnome.Platform"
@@ -150,21 +138,14 @@ flatpak_runtime_version = "47"
 flatpak_sdk = "org.gnome.Sdk"
 
 [tool.briefcase.app.jarsigner_gui.windows]
-requires = [
-    "toga-winforms~=0.4.8",
-]
+requires = ["toga-winforms~=0.4.8"]
 
 # Mobile deployments
 [tool.briefcase.app.jarsigner_gui.iOS]
-requires = [
-    "toga-iOS~=0.4.8",
-    "std-nslog~=1.0.3",
-]
+requires = ["toga-iOS~=0.4.8", "std-nslog~=1.0.3"]
 
 [tool.briefcase.app.jarsigner_gui.android]
-requires = [
-    "toga-android~=0.4.8",
-]
+requires = ["toga-android~=0.4.8"]
 
 base_theme = "Theme.MaterialComponents.Light.DarkActionBar"
 
@@ -178,7 +159,5 @@ build_gradle_dependencies = [
 
 # Web deployments
 [tool.briefcase.app.jarsigner_gui.web]
-requires = [
-    "toga-web~=0.4.8",
-]
+requires = ["toga-web~=0.4.8"]
 style_framework = "Shoelace v2.3"
