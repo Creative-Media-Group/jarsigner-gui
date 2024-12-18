@@ -17,6 +17,7 @@ class JarSigner(toga.App):
         We then create a main window (with a name matching the app), and
         show the main window.
         """
+        self.bundletool = "bundletool-all-1.17.2.jar"
         self.keystore_label = toga.Label("No keyfiles selected...")
         self.android_label = toga.Label("No apkfiles selected...")
         self.select_key = toga.Button(
@@ -76,7 +77,11 @@ class JarSigner(toga.App):
         try:
             self.cmd = f"jarsigner -keystore {self.keyfile} -storepass {self.password.value} {self.androidfile} {self.alias_name.value}"
             self.cmd = self.cmd.split(" ")
-            subprocess.run(self.cmd)
+            process = subprocess.run(self.cmd)
+            self.cmd_java = f"java -jar {self.bundletool} build-apks --bundle=app-release.aab --output=output.apks --ks=my-release-key.jks --ks-key-alias=my-key-alias"
+            self.cmd_java = self.cmd_java.split(" ")
+            process1 = subprocess.run(self.cmd_java)
+            print(process, process1)
             print("ready")
         except:
             print("Fail.")
