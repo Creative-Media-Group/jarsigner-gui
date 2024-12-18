@@ -23,12 +23,14 @@ class JarSigner(toga.App):
         )
         self.alias_name = toga.TextInput(placeholder="Alias")
         self.password = toga.PasswordInput(placeholder="Password")
+        signbtn = toga.Button("Sign")
         main_box = toga.Box(
             children=[
                 self.keystore_label,
                 self.select_key,
                 self.alias_name,
                 self.password,
+                signbtn,
             ]
         )
 
