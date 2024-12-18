@@ -53,7 +53,7 @@ class JarSigner(toga.App):
             if self.apkfile is not None:
                 self.keystore_label = f"File to open: {self.apkfile}"
             else:
-                self.keystore_label = "No file selected!"
+                self.keystore_label = "No files selected..."
         except ValueError:
             self.keystore_label = "Open file dialog was canceled"
 
