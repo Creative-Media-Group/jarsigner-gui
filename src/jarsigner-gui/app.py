@@ -18,9 +18,10 @@ class JarSigner(toga.App):
         """
         # jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
         self.keystore_label = toga.Label("No files selected...")
+        self.select_key = toga.Button("Select File",on_press=self.action_open_file_dialog)
         self.alias_name = toga.TextInput(placeholder="Alias")
         self.password = toga.PasswordInput(placeholder="Password")
-        main_box = toga.Box(children=[self.alias_name, self.password])
+        main_box = toga.Box(children=[self.alias_name, self.password, self.select_key])
 
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
@@ -29,7 +30,7 @@ class JarSigner(toga.App):
     async def action_open_file_dialog(self, widget):
         try:
             fname = await self.main_window.dialog(
-                toga.OpenFileDialog("Open file with Toga")
+                toga.OpenFileDialog("Open file with Toga", file_types=["keystore"])
             )
             if fname is not None:
                 self.keystore_label = f"File to open: {fname}"
