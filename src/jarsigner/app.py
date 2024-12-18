@@ -5,6 +5,7 @@ My first application
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
+import asyncio
 
 
 class JarSigner(toga.App):
@@ -15,11 +16,27 @@ class JarSigner(toga.App):
         We then create a main window (with a name matching the app), and
         show the main window.
         """
-        main_box = toga.Box()
+        # jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my-release-key.keystore my_application.apk alias_name
+        self.keystore_label = toga.Label()
+        self.alias_name = toga.TextInput(placeholder="Alias")
+        self.password = toga.PasswordInput(placeholder="Password")
+        main_box = toga.Box(children=[self.alias_name, self.password])
 
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
         self.main_window.show()
+
+    async def action_open_file_dialog(self, widget):
+        try:
+            fname = await self.main_window.dialog(
+                toga.OpenFileDialog("Open file with Toga")
+            )
+            if fname is not None:
+                self.label.text = f"File to open: {fname}"
+            else:
+                self.label.text = "No file selected!"
+        except ValueError:
+            self.label.text = "Open file dialog was canceled"
 
 
 def main():
