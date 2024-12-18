@@ -20,11 +20,11 @@ class JarSigner(toga.App):
         self.keystore_label = toga.Label("No files selected...")
         self.select_key = toga.Button(
             "Select Key",
-            on_press=lambda _: self.action_open_file_dialog(file_type="keystore"),
+            on_press=self.key_action_open_file_dialog,
         )
         self.apk_file = toga.Button(
             "Select APK file",
-            on_press=lambda _: self.action_open_file_dialog(file_type="apk"),
+            on_press=self.apk_action_open_file_dialog,
         )
         self.alias_name = toga.TextInput(placeholder="Alias")
         self.password = toga.PasswordInput(placeholder="Password")
@@ -33,6 +33,7 @@ class JarSigner(toga.App):
             children=[
                 self.keystore_label,
                 self.select_key,
+                self.apk_file,
                 self.alias_name,
                 self.password,
                 signbtn,
@@ -43,10 +44,22 @@ class JarSigner(toga.App):
         self.main_window.content = main_box
         self.main_window.show()
 
-    async def action_open_file_dialog(self, file_type, widget):
+    async def apk_action_open_file_dialog(self, widget):
         try:
             fname = await self.main_window.dialog(
-                toga.OpenFileDialog("Open file with Toga", file_types=[file_type])
+                toga.OpenFileDialog("Open file with Toga", file_types=["apk"])
+            )
+            if fname is not None:
+                self.keystore_label = f"File to open: {fname}"
+            else:
+                self.keystore_label = "No file selected!"
+        except ValueError:
+            self.keystore_label = "Open file dialog was canceled"
+
+    async def key_action_open_file_dialog(self, widget):
+        try:
+            fname = await self.main_window.dialog(
+                toga.OpenFileDialog("Open file with Toga", file_types=["keystore"])
             )
             if fname is not None:
                 self.keystore_label = f"File to open: {fname}"
