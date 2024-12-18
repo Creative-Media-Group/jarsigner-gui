@@ -23,7 +23,7 @@ class JarSigner(toga.App):
             "Select Key",
             on_press=self.key_action_open_file_dialog,
         )
-        self.android_file = toga.Button(
+        self.android_file_btn = toga.Button(
             "Select APK file",
             on_press=self.android_action_open_file_dialog,
         )
@@ -35,7 +35,7 @@ class JarSigner(toga.App):
                 self.keystore_label,
                 self.android_label,
                 self.select_key,
-                self.android_file,
+                self.android_file_btn,
                 self.alias_name,
                 self.password,
                 signbtn,
@@ -74,7 +74,7 @@ class JarSigner(toga.App):
 
     def sign(self):
         try:
-            self.cmd = f"jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore {self.keyfile} {self.android_file} {self.alias_name}"
+            self.cmd = f"jarsigner -keystore {self.keyfile} -storepass {self.password.value} {self.androidfile} {self.alias_name.value}"
             self.cmd = self.cmd.split(" ")
             subprocess.run(self.cmd)
             print("ready")
