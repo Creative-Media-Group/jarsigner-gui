@@ -22,14 +22,14 @@ class JarSigner(toga.App):
                 csv_file=self.tr_file,
                 langcode=self.locale,
                 target_key="NOKEYFILESELECTED",
-            )
+            ),style=Pack(text_align="center", padding=10),
         )
         self.android_label = toga.Label(
             tr(
                 csv_file=self.tr_file,
                 langcode=self.locale,
                 target_key="NOAPK_AABFILESSELECTED",
-            )
+            ),style=Pack(text_align="center", padding=10),
         )
         self.select_key = toga.Button(
             tr(
@@ -37,14 +37,14 @@ class JarSigner(toga.App):
                 langcode=self.locale,
                 target_key="SELECTKEY",
             ),
-            on_press=self.key_action_open_file_dialog,
+            on_press=self.key_action_open_file_dialog,style=Pack(text_align="center", padding=10)
         )
         self.android_file_btn = toga.Button(
             tr(
                 csv_file=self.tr_file,
                 langcode=self.locale,
                 target_key="SELECTAPK",
-            ),
+            ),style=Pack(text_align="center", padding=10),
             on_press=self.android_action_open_file_dialog,
         )
         self.alias_name = toga.TextInput(
@@ -52,16 +52,16 @@ class JarSigner(toga.App):
                 csv_file=self.tr_file,
                 langcode=self.locale,
                 target_key="ALIAS",
-            ),
+            ),style=Pack(alignment="center", direction="column", flex=1)
         )
         self.password = toga.PasswordInput(
             placeholder=tr(
                 csv_file=self.tr_file,
                 langcode=self.locale,
                 target_key="PASSWORD",
-            ),
+            ),style=Pack(alignment="center", direction="column", flex=1)
         )
-        signbtn = toga.Button("Sign")
+        signbtn = toga.Button("Sign", style=Pack(text_align="center", padding=10))
         main_box = toga.Box(
             children=[
                 self.keystore_label,
@@ -71,7 +71,8 @@ class JarSigner(toga.App):
                 self.alias_name,
                 self.password,
                 signbtn,
-            ]
+            ],
+            style=Pack(alignment="center", direction="column", flex=1),
         )
 
         self.main_window = toga.MainWindow(title=self.formal_name)
