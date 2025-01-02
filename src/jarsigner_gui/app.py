@@ -53,7 +53,7 @@ class JarSigner(toga.App):
                 langcode=self.locale,
                 target_key="ALIAS",
             ),
-            style=Pack(alignment="center", direction="column", flex=1),
+            style=Pack(text_align="center", padding=10),
         )
         self.password = toga.PasswordInput(
             placeholder=tr(
@@ -61,7 +61,7 @@ class JarSigner(toga.App):
                 langcode=self.locale,
                 target_key="PASSWORD",
             ),
-            style=Pack(alignment="center", direction="column", flex=1),
+            style=Pack(text_align="center", padding=10),
         )
         signbtn = toga.Button("Sign", style=Pack(text_align="center", padding=10))
         main_box = toga.Box(
