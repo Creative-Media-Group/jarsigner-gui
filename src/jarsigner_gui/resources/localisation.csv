@@ -1,3 +1,7 @@
 stringname,en,de
 NOKEYFILESELECTED,No keyfile selected...,Keine Key-Datei ausgewählt
 NOAPK_AABFILESSELECTED,No APK/AAB files selected...,Keine APK/AAB-Datei ausgewählt
+SELECTKEY,Select Key,Schlüssel auswählen
+SELECTAPK,Select APK/AAB file,APK/AAB Datei auswählen
+ALIAS,Alias,Alias
+PASSWORD,Password,Passwort

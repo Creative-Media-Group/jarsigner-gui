@@ -13,7 +13,8 @@ import locale
 
 class JarSigner(toga.App):
     def startup(self):
-        self.tr_file = "resources/localisation.csv"
+        self.mypath = self.paths.app.absolute()
+        self.tr_file = f"{self.mypath}/resources/localisation.csv"
         self.locale = locale.getlocale()[0].split("_")[0]
         self.bundletool = "bundletool-all-1.17.2.jar"
         self.keystore_label = toga.Label(
@@ -27,19 +28,39 @@ class JarSigner(toga.App):
             tr(
                 csv_file=self.tr_file,
                 langcode=self.locale,
-                target_key="NOKEYFILESELECTED",
+                target_key="NOAPK_AABFILESSELECTED",
             )
         )
         self.select_key = toga.Button(
-            "Select Key",
+            tr(
+                csv_file=self.tr_file,
+                langcode=self.locale,
+                target_key="SELECTKEY",
+            ),
             on_press=self.key_action_open_file_dialog,
         )
         self.android_file_btn = toga.Button(
-            "Select APK file",
+            tr(
+                csv_file=self.tr_file,
+                langcode=self.locale,
+                target_key="SELECTAPK",
+            ),
             on_press=self.android_action_open_file_dialog,
         )
-        self.alias_name = toga.TextInput(placeholder="Alias")
-        self.password = toga.PasswordInput(placeholder="Password")
+        self.alias_name = toga.TextInput(
+            placeholder=tr(
+                csv_file=self.tr_file,
+                langcode=self.locale,
+                target_key="ALIAS",
+            ),
+        )
+        self.password = toga.PasswordInput(
+            placeholder=tr(
+                csv_file=self.tr_file,
+                langcode=self.locale,
+                target_key="PASSWORD",
+            ),
+        )
         signbtn = toga.Button("Sign")
         main_box = toga.Box(
             children=[
