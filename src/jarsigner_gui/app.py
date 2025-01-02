@@ -5,6 +5,7 @@ import asyncio
 import subprocess
 from mylocale import tr
 import locale
+from pathlib import Path
 
 
 class JarSigner(toga.App):
@@ -63,7 +64,11 @@ class JarSigner(toga.App):
             ),
             style=Pack(text_align="center", padding=10),
         )
-        signbtn = toga.Button("Sign", style=Pack(text_align="center", padding=10))
+        signbtn = toga.Button(
+            "Sign",
+            style=Pack(text_align="center", padding=10),
+            on_press=lambda _: self.sign(),
+        )
         main_box = toga.Box(
             children=[
                 self.keystore_label,
@@ -108,14 +113,20 @@ class JarSigner(toga.App):
             self.keystore_label.text = "Open file dialog was canceled"
 
     def sign(self):
+        filetype = Path(str(self.androidfile)).suffix
+        print(filetype)
+
+    def sign_apk(self):
         try:
             self.cmd = f"jarsigner -keystore {self.keyfile} -storepass {self.password.value} {self.androidfile} {self.alias_name.value}"
             self.cmd = self.cmd.split(" ")
-            process = subprocess.run(self.cmd)
-            self.cmd_java = f"java -jar {self.bundletool} build-apks --bundle=app-release.aab --output=output.apks --ks=my-release-key.jks --ks-key-alias=my-key-alias"
+            print(self.cmd)
+            process1 = subprocess.run(self.cmd)
+            self.cmd_java = f"java -jar {self.bundletool} build-apks --bundle=app-release.aab --output=output.apks --ks={self.keyfile} --ks-key-alias={self.alias_name}"
             self.cmd_java = self.cmd_java.split(" ")
-            process1 = subprocess.run(self.cmd_java)
-            print(process, process1)
+            print(self.cmd_java)
+            process2 = subprocess.run(self.cmd_java)
+            print(process1, process2)
             print("ready")
         except:
             print("Fail.")

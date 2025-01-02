@@ -52,7 +52,8 @@ system_requires = [
     "cairo-gobject-devel",
     # Needed to compile PyGObject wheel
     "gobject-introspection-devel",
-    "java-21-openjdk-devel",  # Removing if needed
+    "java-21-openjdk-devel",       # Removing if needed
+    "android-tools",
 ]
 
 system_runtime_requires = [
