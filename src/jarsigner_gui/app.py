@@ -7,19 +7,29 @@ from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 import asyncio
 import subprocess
+from mylocale import tr
+import locale
 
 
 class JarSigner(toga.App):
     def startup(self):
-        """Construct and show the Toga application.
-
-        Usually, you would add your application to a main content box.
-        We then create a main window (with a name matching the app), and
-        show the main window.
-        """
+        self.tr_file = "resources/localisation.csv"
+        self.locale = locale.getlocale()[0].split("_")[0]
         self.bundletool = "bundletool-all-1.17.2.jar"
-        self.keystore_label = toga.Label("No keyfiles selected...")
-        self.android_label = toga.Label("No apkfiles selected...")
+        self.keystore_label = toga.Label(
+            tr(
+                csv_file=self.tr_file,
+                langcode=self.locale,
+                target_key="NOKEYFILESELECTED",
+            )
+        )
+        self.android_label = toga.Label(
+            tr(
+                csv_file=self.tr_file,
+                langcode=self.locale,
+                target_key="NOKEYFILESELECTED",
+            )
+        )
         self.select_key = toga.Button(
             "Select Key",
             on_press=self.key_action_open_file_dialog,
